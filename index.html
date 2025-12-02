@@ -324,7 +324,16 @@ function updateTimerDisplay() {
 }
 
 function startTimer() {
+  // If timer not set yet, read minutes from input
+  if (timeLeft <= 0) {
+    const input = document.getElementById("timerMinutes");
+    const mins = parseInt(input.value, 10);
+    timeLeft = (!isNaN(mins) && mins > 0) ? mins * 60 : 0;
+    updateTimerDisplay();
+  }
+
   if (isRunning || timeLeft <= 0) return;
+
   isRunning = true;
   countdown = setInterval(() => {
     if (timeLeft <= 0) {
@@ -337,6 +346,7 @@ function startTimer() {
     updateTimerDisplay();
   }, 1000);
 }
+
 
 function pauseTimer() {
   clearInterval(countdown);
@@ -425,3 +435,4 @@ showTrainingDay({ target: document.querySelector(".day-btn") });
 </script>
 </body>
 </html>
+
